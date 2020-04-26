@@ -1,6 +1,6 @@
 {
   "name": "collection-fns",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A set of flexible functions to query and manipulate arrays of models",
   "keywords": [
     "models",
@@ -9,7 +9,7 @@
   ],
   "main": "dist/collection-fns.umd.js",
   "module": "dist/collection-fns.es5.js",
-  "typings": "dist/types/collection-fns.d.ts",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
