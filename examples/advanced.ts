@@ -9,7 +9,10 @@ let id = 1
 
 class Windows {
   protected windows: Window[] = []
-  protected key: 'windowId'
+
+  // important that this stays untyped to work with index type `keyof T` !
+  // @see https://www.typescriptlang.org/docs/handbook/advanced-types.html#index-types
+  protected key: any = 'windowId'
 
   add (content: string) {
     return add(this.windows, { windowId: id++, content }, 0)
