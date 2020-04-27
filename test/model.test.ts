@@ -11,7 +11,8 @@ import {
   move,
   moveToEnd,
   moveByIndex,
-  remove } from '../src'
+  remove,
+} from '../src'
 
 import { people, makePerson, Person } from './setup'
 
@@ -105,7 +106,7 @@ describe('model functions', () => {
 
   it('moveByIndex: to another array', () => {
     const other: Person[] = [
-      makePerson('jill')
+      makePerson('jill'),
     ]
     moveByIndex(people, 1, 1, other)
     expect(people.length).toBe(2)
@@ -124,5 +125,4 @@ describe('model functions', () => {
     expect(person).toBeUndefined()
     expect(people.length).toBe(3)
   })
-
 })

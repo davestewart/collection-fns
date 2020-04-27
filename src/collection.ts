@@ -1,4 +1,4 @@
-import { M, Key } from './types'
+import { R } from './types'
 import { sortBy } from './utils'
 import { get } from './model'
 
@@ -9,7 +9,7 @@ import { get } from './model'
  * @param b           The new collection of models to be merged from
  * @param key         The collection's key (defaults to "id")
  */
-export function merge<T extends M, K extends keyof T> (a: M[], b: M[], key: Key = 'id'): M[] {
+export function merge<T extends R> (a: T[], b: T[], key: keyof T = 'id'): T[] {
   const output = [...a]
   b.forEach(model => {
     const found = get(a, model[key], key)
@@ -26,7 +26,7 @@ export function merge<T extends M, K extends keyof T> (a: M[], b: M[], key: Key 
  * @param models      An array of models
  * @param callback    The callback to apply to each model
  */
-export function forEach<M> (models: M[], callback: Function): M[] {
+export function forEach<T extends R> (models: T[], callback: Function): T[] {
   models.forEach((model, index) => {
     callback(model, index, models)
   })
@@ -39,7 +39,7 @@ export function forEach<M> (models: M[], callback: Function): M[] {
  * @param models      An array of models
  * @param callback    The callback to apply to each model
  */
-export function map<M> (models: M[], callback: Function): M[] {
+export function map<T extends R> (models: T[], callback: Function): T[] {
   models.forEach((model, index) => {
     models[index] = callback(model, index, models)
   })
@@ -53,7 +53,7 @@ export function map<M> (models: M[], callback: Function): M[] {
  * @param predicate   Either a value or a comparison function
  * @param key         The key to be used for the comparison (defaults to "id")
  */
-export function filter<T extends M, K extends keyof T> (models: M[], predicate: Function | any, key: Key = 'id'): M {
+export function filter<T extends R> (models: T[], predicate: any | Function, key: keyof T = 'id'): T[] {
   return typeof predicate === 'function'
     ? models.filter((item, index) => predicate(item, index, models))
     : models.filter(item => item[key] === predicate)
@@ -66,7 +66,7 @@ export function filter<T extends M, K extends keyof T> (models: M[], predicate: 
  * @param predicate   Either a value or a comparison function
  * @param key         The key to be used for the comparison (defaults to "id")
  */
-export function omit<T extends M, K extends keyof T> (models: M[], predicate: Function | any, key: Key = 'id'): M {
+export function omit<T extends R> (models: T[], predicate: any | Function, key: keyof T = 'id'): T[] {
   return typeof predicate === 'function'
     ? models.filter((item, index) => !predicate(item, index, models))
     : models.filter(item => item[key] !== predicate)
@@ -80,6 +80,6 @@ export function omit<T extends M, K extends keyof T> (models: M[], predicate: Fu
  * @param asc         An optional flag to sort ascending (true, default) or descending (false)
  * @param numeric     An optional flag to perform a numeric sort
  */
-export function sort<T extends M, K extends keyof T> (models: M[], key: string, asc = true, numeric = false): M {
+export function sort<T extends R> (models: T[], key: string, asc = true, numeric = false): T[] {
   return models.sort(sortBy(key, asc, numeric))
 }

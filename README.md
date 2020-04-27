@@ -2,9 +2,9 @@
 
 ## Abstract
 
-Collection Fns is a set of flexible functions designed to manipulate collections of models:
+Collection Fns is a set of flexible, type-safe functions designed to manipulate collections of models:
 
-- a model is defined as an object with a common identifier such as `id`, `guid` or `someId`
+- a model is defined as an object with a common identifier such as `id`, `guid` or `fooId`
 - a collection is defined as an `Array` of models sharing the same `id` key
 - flexible functions is defined that any function can applied to any collection of arbitrary models
 
@@ -16,7 +16,7 @@ The project has the following goals:
 - to provide a basic set of array collection / model manipulation functions
 - to be expressive and flexible
 - to be purely functional
-- to be TypeScript-native
+- to be TypeScript native
 
 ## Installation
 
@@ -54,7 +54,7 @@ Check the example files for full code:
 
 ## Functions
 
-> Note that the "keyed" column indicates presence of the an optional `key` parameter, which defaults to `'id'`.
+> Note that the "keyed" column indicates presence of the an optional model `key` parameter, which defaults to `'id'`.
 
 ### Models
 
@@ -68,7 +68,7 @@ These functions are concerned with single models:
 | get         | x      | Get a model from a collection                                | model   |
 | getIndex    | x      | Get the index of a model in a collection                     | number  |
 | getRandom   | &nbsp; | Get a random model from a collection                         | model   |
-| add         | x      | Add a model to a collection                                  | model   |
+| add         | x      | Add a model to a collection, or if it already exists, update | model   |
 | addOrMove   | x      | Add a model to a collection, or if it already exists, move it to an index | model   |
 | update      | x      | Update a model if it exists in a collection                  | model   |
 | move        | x      | Move a model in a collection to a specific index in the same or a different array | model   |
@@ -90,14 +90,33 @@ These functions manipulate collections, offering simple lodash-like functionalit
 | sort     | o      | Sort a collection of models by property                      | array    |
 | sortBy   | &nbsp; | Utility function to return a sort() comparison function      | function |
 
-# Scripts
+## TypeScript
 
- - `npm t`: run test suite
- - `npm start`: run `npm run build` in watch mode
- - `npm run test:watch`: run test suite in [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch)
- - `npm run test:verbose`: run test suite in interactive mode and with verbose output
- - `npm run test:prod`: run linting and generate coverage
- - `npm run build`: generate bundles and typings, create docs
- - `npm run lint`: lints code
- - `npm run commit`: commit using conventional commit style ([husky](https://github.com/typicode/husky) will tell you to use it if you haven't :wink:)
+The package's functions' are **generic**, meaning that the values you supply the function will enforce their own type checking.
 
+Consider the following:
+
+```ts
+import { update } from 'collection-fns'
+
+const people = [
+  { id: 1, name: 'tom' },
+  { id: 2, name: 'dick' },
+  { id: 3, name: 'harry' },
+]
+
+update(people, 2, { age: 100 }) // error! Object literal may only specify known properties, and 'age' does not exist in type 'Partial<{ id: number; name: string; }>'.
+```
+
+You can be sure that TypeScript's got your back when shuffling models within and between collections!
+
+## Scripts
+
+ - `npm run dev` - build and watch the package for changes
+
+- `npm run build` - build the package for production
+- `npm run prepare` - lint and fix, then build the package ready for publishing
+- `npm run demo` - load and run the demo
+- `npm run lint` - run linting
+- `npm run lint:fix` - run linting and fix errors
+- `npm run test` - run and watch unit tests

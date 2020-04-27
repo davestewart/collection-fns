@@ -12,7 +12,7 @@ class Windows {
   protected key: 'windowId'
 
   add (content: string) {
-    return add(this.windows, { id: id++, content }, 0)
+    return add(this.windows, { windowId: id++, content }, 0)
   }
 
   get (id: number) {

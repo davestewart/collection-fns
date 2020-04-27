@@ -1,9 +1,2 @@
-type Id = number | string // | symbol
-type Key = string // | symbol
-type M = Record<Key, any>
-
-export {
-  Id,
-  Key,
-  M
-}
+export type Id = number | string | symbol
+export type R = Record<string, any>
