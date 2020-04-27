@@ -1,12 +1,17 @@
-node_modules
-coverage
-.nyc_output
 .DS_Store
-*.log
-.vscode
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+build/.rpt2_cache
+tests/coverage
+/coverage
+
+
+# Editor directories and files
 .idea
-dist
-compiled
-.awcache
-.rpt2_cache
-docs
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
