@@ -4,8 +4,8 @@ import {
   map,
   filter,
   omit,
-  sort } from '../src'
-
+  sort,
+} from '../src'
 
 import { people, makePerson, Person } from './setup'
 
@@ -62,5 +62,4 @@ describe('model functions', () => {
     const arr = sort(people, 'name')
     expect(arr.map((person: Person) => person.name).join()).toBe('dick,harry,tom')
   })
-
 })

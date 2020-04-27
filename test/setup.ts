@@ -14,7 +14,7 @@ export function initialize () {
 }
 
 beforeEach(() => {
-  initialize();
+  initialize()
 })
 
 export let id = 1

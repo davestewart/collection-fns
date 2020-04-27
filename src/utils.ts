@@ -10,7 +10,7 @@ import { R } from './types'
 export function sortBy (key: string, asc = true, numeric = false) {
   let aVal
   let bVal
-  return function <T extends R>(a: T, b: T): 1 | 0 | -1 {
+  return function <T extends R> (a: T, b: T): 1 | 0 | -1 {
     aVal = numeric ? Number(a[key]) : a[key]
     bVal = numeric ? Number(b[key]) : b[key]
     return aVal === bVal
