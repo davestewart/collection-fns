@@ -19,6 +19,13 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@likelylogic"
   },
+  "main": "dist/collection-fns.js",
+  "module": "dist/collection-fns.esm.js",
+  "jsnext:main": "dist/collection-fns.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "dev": "rollup -c build/rollup.js -w",
     "build": "rollup -c build/rollup.js",
@@ -27,16 +34,6 @@
     "lint": "./node_modules/.bin/eslint 'src/**/*.ts' 'test/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --watchAll --verbose"
-  },
-  "main": "dist/collection-fns.js",
-  "module": "dist/collection-fns.esm.js",
-  "jsnext:main": "dist/collection-fns.esm.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist/*"
-  ],
-  "dependencies": {
-    "deepmerge": "^3.3.0"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",

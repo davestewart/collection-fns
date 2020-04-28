@@ -10,7 +10,8 @@ let id = 1
 class Windows {
   protected windows: Window[] = []
 
-  // important that this stays untyped to work with index type `keyof T` !
+  // note: key must remain untyped to work with index type `keyof T` !
+  // @see https://mariusschulz.com/blog/string-literal-types-in-typescript#string-literal-types-vs-strings
   // @see https://www.typescriptlang.org/docs/handbook/advanced-types.html#index-types
   protected key: any = 'windowId'
 

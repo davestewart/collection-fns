@@ -4,57 +4,24 @@
 
 Collection Fns is a set of flexible, type-safe functions designed to manipulate collections of models:
 
-- a model is defined as an object with a common identifier such as `id`, `guid` or `fooId`
+- a model is defined as an object with a common identifier such as `id`, `guid` or `someId`
 - a collection is defined as an `Array` of models sharing the same `id` key
 - flexible functions is defined that any function can applied to any collection of arbitrary models
 
-### Project goals
-
 The project has the following goals:
 
-- to target models by arbitrary property (defaulting to `id`)
 - to provide a basic set of array collection / model manipulation functions
+- to target models by arbitrary property (defaulting to `id`)
 - to be expressive and flexible
 - to be purely functional
 - to be TypeScript native
 
-## Installation
+The end result is you use simple, safe and robust helper functions to maniulate arrays of models without ever having to resort to writing complex, fragile or error-prone array-centric code.
 
-```bash
-# NPM
-npm i @likelylogic/collection-fns
-
-# Yarn
-yarn add @likelylogic/collection-fns
-```
-
-## Usage
-
-Here are some basic examples showing the flexibility and functional nature of the library:
-
-```js
-// get the model identified by an id of 5
-get(models, 5)
-```
-
-```js
-// update the window identified by a windowId of 10 with new data 
-update(windows, 10, data, 'windowId')
-```
-
-```js
-// move a tab identified by a tabId 15 to the 5th index in another collection
-move(left, 15, 5, right, 'tabId')
-```
-
-Check the example files for full code:
-
-- [Basic](./examples/basic.ts) – manage arrays of arbitrary models
-- [Advanced](./examples/advanced.ts) – compose the functions into reusable collection classes
 
 ## Functions
 
-> Note that the "keyed" column indicates presence of the an optional model `key` parameter, which defaults to `'id'`.
+> Note that the "keyed" column indicates presence of the an optional model `key` parameter, which alows you to target any model schema (defaults to `'id'`).
 
 ### Models
 
@@ -90,14 +57,51 @@ These functions manipulate collections, offering simple lodash-like functionalit
 | sort     | o      | Sort a collection of models by property                      | array    |
 | sortBy   | &nbsp; | Utility function to return a sort() comparison function      | function |
 
-## TypeScript
 
-The package's functions' are **generic**, meaning that the values you supply the function will enforce their own type checking.
+## Installation
 
-Consider the following:
+```bash
+# NPM
+npm i @likelylogic/collection-fns
+
+# Yarn
+yarn add @likelylogic/collection-fns
+```
+
+## Usage
+
+Here are some basic examples showing the flexibility and functional nature of the library:
+
+```js
+// get the model identified by an id of 5
+get(models, 5)
+```
+
+```js
+// update the window identified by a windowId of 10 with new data 
+update(windows, 10, data, 'windowId')
+```
+
+```js
+// move a tab identified by a tabId 15 to the 5th index in another collection
+move(left, 15, 5, right, 'tabId')
+```
+
+Check the example files for full code:
+
+- [Basic](./examples/basic.ts) – manage arrays of arbitrary models
+- [Advanced](./examples/advanced.ts) – compose the functions into reusable collection classes
+- [Generics](./examples/generics.ts) – example of using and overriding generic type-safety
+
+
+## Generic type safety
+
+The package's functions are [generic](https://www.typescriptlang.org/docs/handbook/generics.html#using-type-parameters-in-generic-constraints) meaning that the values you supply the function will enforce their own type checking.
+
+Consider the following; the `people` array should not be able to be updated with the wrong information:
 
 ```ts
-import { update } from 'collection-fns'
+import { update } from '@likelylogic/collection-fns'
 
 const people = [
   { id: 1, name: 'tom' },
@@ -106,6 +110,12 @@ const people = [
 ]
 
 update(people, 2, { age: 100 }) // error! Object literal may only specify known properties, and 'age' does not exist in type 'Partial<{ id: number; name: string; }>'.
+```
+
+To force an update, type the payload as `any`:
+
+```ts
+update(people, 2, { age: 100 } as any)
 ```
 
 You can be sure that TypeScript's got your back when shuffling models within and between collections!
