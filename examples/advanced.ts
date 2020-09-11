@@ -16,7 +16,8 @@ class Windows {
   protected key: any = 'windowId'
 
   add (content: string) {
-    return add(this.windows, { windowId: id++, content }, 0)
+    const window = { [this.key]: id++, content }
+    return add(this.windows, window, 0)
   }
 
   get (id: number) {

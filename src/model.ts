@@ -25,7 +25,7 @@ export function last<T extends R> (models: T[]): T | undefined {
  * @param id          The id of the model to target
  * @param key         The collection's key (defaults to "id")
  */
-export function has<T extends R> (models: Array<T>, id: Id, key: keyof T = 'id'): boolean {
+export function has<T extends R> (models: T[], id: Id, key: keyof T = 'id'): boolean {
   return !!get(models, id, key)
 }
 

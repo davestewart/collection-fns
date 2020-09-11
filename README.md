@@ -4,9 +4,9 @@
 
 Collection Fns is a set of flexible, type-safe functions designed to manipulate collections of models:
 
-- a model is defined as an object with a common identifier such as `id`, `guid` or `someId`
-- a collection is defined as an `Array` of models sharing the same `id` key
-- flexible functions is defined that any function can applied to any collection of arbitrary models
+- a **model** is defined as an object with a common identifier such as `id`, `guid` or `someId`
+- a **collection** is defined as an `Array` of models sharing the same `id` key
+- **flexible functions** is defined that any function can applied to any collection of arbitrary models
 
 The project has the following goals:
 
@@ -16,16 +16,19 @@ The project has the following goals:
 - to be purely functional
 - to be TypeScript native
 
-The end result is you use simple, safe and robust helper functions to maniulate arrays of models without ever having to resort to writing complex, fragile or error-prone array-centric code.
+The end result is you use simple, safe and robust helper functions to maniulate arrays of models without ever having to resort to writing repetitive, complex, fragile or error-prone array-centric code.
 
 
 ## Functions
 
-> Note that the "keyed" column indicates presence of the an optional model `key` parameter, which alows you to target any model schema (defaults to `'id'`).
+Note the  "keyed" column below, for functions which take an optional `key` parameter, allowing you to target any model schema (defaults to `'id'`).
+
+- an `x` means the model `id` is keyed
+- an `o` means a different property is keyed
 
 ### Models
 
-These functions are concerned with single models:
+These functions manage single models within a collection:
 
 | Function    | Keyed  | Description                                                  | Returns |
 | ----------- | ------ | ------------------------------------------------------------ | ------- |
@@ -49,11 +52,12 @@ These functions manipulate collections, offering simple lodash-like functionalit
 
 | Function | Keyed  | Description                                                  | Returns  |
 | -------- | ------ | ------------------------------------------------------------ | -------- |
-| merge    | x      | Given two arrays of models, add the models not found in the first array from the second array, and return the new array | array    |
 | forEach  | &nbsp; | Iterate over a collection of models and call a function on each model | array    |
 | map      | &nbsp; | Iterate over a collection of models, call a function on each model, and return the updated array | array    |
 | filter   | o      | Filter a collection of models by property, including matched values | array    |
 | omit     | o      | Filter a collection of models by property, omitting matched values | array    |
+| dedupe   | x      | Filter a collection of models, omitting those with duplicate ids | array    |
+| merge    | x      | Given two arrays of models, add the models not found in the first array from the second array, and return the new array | array    |
 | sort     | o      | Sort a collection of models by property                      | array    |
 | sortBy   | &nbsp; | Utility function to return a sort() comparison function      | function |
 
@@ -85,6 +89,11 @@ update(windows, 10, data, 'windowId')
 ```js
 // move a tab identified by a tabId 15 to the 5th index in another collection
 move(left, 15, 5, right, 'tabId')
+```
+
+```js
+// sort a collection of users by first name
+sort(users, 'firstName')
 ```
 
 Check the example files for full code:
@@ -126,7 +135,25 @@ You can be sure that TypeScript's got your back when shuffling models within and
 
 - `npm run build` - build the package for production
 - `npm run prepare` - lint and fix, then build the package ready for publishing
-- `npm run demo` - load and run the demo
 - `npm run lint` - run linting
 - `npm run lint:fix` - run linting and fix errors
 - `npm run test` - run and watch unit tests
+
+## Contributing
+
+Adding new functionality:
+
+- write code
+- write tests
+- run tests / check coverage
+- update docs
+
+Publishing:
+
+- update package version (minor or patch)
+- run scripts:
+
+```
+npm run prepare
+npm publish
+```
