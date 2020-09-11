@@ -3,24 +3,6 @@ import { sortBy } from './utils'
 import { get } from './model'
 
 /**
- * Given two arrays of models, add the models not found in the first array from the second array, and return the new array
- * @category Collection
- * @param a           The initial collection of models
- * @param b           The new collection of models to be merged from
- * @param key         The collection's key (defaults to "id")
- */
-export function merge<T extends R> (a: T[], b: T[], key: keyof T = 'id'): T[] {
-  const output = [...a]
-  b.forEach(model => {
-    const found = get(a, model[key], key)
-    if (!found) {
-      output.push(model)
-    }
-  })
-  return output
-}
-
-/**
  * Iterate over a collection of models and call a function on each model
  * @category Collection
  * @param models      An array of models
@@ -70,6 +52,43 @@ export function omit<T extends R> (models: T[], predicate: any | Function, key: 
   return typeof predicate === 'function'
     ? models.filter((item, index) => !predicate(item, index, models))
     : models.filter(item => item[key] !== predicate)
+}
+
+/**
+ * Filter a collection of models, omitting those with duplicate ids
+ * @category Collection
+ * @param models      An array of models
+ * @param key         The collection's key (defaults to "id")
+ */
+export function dedupe<T extends R> (models: T[], key: keyof T = 'id'): T[] {
+  const output: T[] = []
+  const ids: object = {}
+  models.forEach(model => {
+    const id: string = model[key]
+    if (!ids[id]) {
+      output.push(model)
+      ids[id] = true
+    }
+  })
+  return output
+}
+
+/**
+ * Given two arrays of models, add the models not found in the first array from the second array, and return the new array
+ * @category Collection
+ * @param a           The initial collection of models
+ * @param b           The new collection of models to be merged from
+ * @param key         The collection's key (defaults to "id")
+ */
+export function merge<T extends R> (a: T[], b: T[], key: keyof T = 'id'): T[] {
+  const output = [...a]
+  b.forEach(model => {
+    const found = get(a, model[key], key)
+    if (!found) {
+      output.push(model)
+    }
+  })
+  return output
 }
 
 /**
