@@ -12,7 +12,7 @@ import {
   moveToEnd,
   moveByIndex,
   remove,
-} from '../src'
+} from '../../src'
 
 import { people, makePerson, Person } from './setup'
 
@@ -33,6 +33,11 @@ describe('model functions', () => {
 
   it('get', () => {
     const person = get(people, 2)
+    expect(person && person.name).toBe('dick')
+  })
+
+  it('get: with id', () => {
+    const person = get(people, 2, 'id')
     expect(person && person.name).toBe('dick')
   })
 
@@ -69,9 +74,15 @@ describe('model functions', () => {
     expect(people[0].name).toBe('ben')
   })
 
-  it('addOrMove', () => {
+  it('addOrMove: add', () => {
     const person = makePerson('jill')
     add(people, person)
+    addOrMove(people, person, 0)
+    expect(people.indexOf(person)).toBe(0)
+  })
+
+  it('addOrMove: move', () => {
+    const person = makePerson('jill')
     addOrMove(people, person, 0)
     expect(people.indexOf(person)).toBe(0)
   })

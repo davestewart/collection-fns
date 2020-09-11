@@ -55,24 +55,5 @@
     "rollup-plugin-uglify": "^6.0.4",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
-    },
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   }
 }

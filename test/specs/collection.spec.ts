@@ -1,28 +1,16 @@
 import {
-  merge,
   forEach,
   map,
   filter,
   omit,
+  merge,
+  dedupe,
   sort,
-} from '../src'
+} from '../../src'
 
 import { people, makePerson, Person } from './setup'
 
-describe('model functions', () => {
-  it('merge', () => {
-    const newArray = [
-      people[0],
-      makePerson('jane'),
-      people[1],
-      makePerson('jill'),
-      people[2],
-      makePerson('sarah'),
-    ]
-    const finalArray = merge(people, newArray)
-    expect(finalArray.length).toBe(6)
-  })
-
+describe('collection functions', () => {
   it('forEach', () => {
     forEach(people, (person: Person) => {
       person.name = 'dave'
@@ -56,6 +44,35 @@ describe('model functions', () => {
   it('omit: function', () => {
     const arr = omit(people, (person: Person) => person.name.length > 3)
     expect(arr.length).toBe(1)
+  })
+
+  it('dedupe', () => {
+    const a = makePerson('jane', 1)
+    const b = makePerson('jill', 1)
+    const c = makePerson('jill', 2)
+    const input = [a, b, c]
+
+    const noKey = dedupe(input)
+    expect(noKey).toEqual([a, c])
+
+    const ids = dedupe(input, 'id')
+    expect(ids).toEqual([a, c])
+
+    const names = dedupe(input, 'name')
+    expect(names).toEqual([a, b])
+  })
+
+  it('merge', () => {
+    const newArray = [
+      people[0],
+      makePerson('jane'),
+      people[1],
+      makePerson('jill'),
+      people[2],
+      makePerson('sarah'),
+    ]
+    const finalArray = merge(people, newArray)
+    expect(finalArray.length).toBe(6)
   })
 
   it('sort', () => {

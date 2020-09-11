@@ -6,7 +6,7 @@ yarn-error.log
 
 build/.rpt2_cache
 tests/coverage
-/coverage
+/test/coverage
 
 
 # Editor directories and files
