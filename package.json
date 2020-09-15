@@ -30,7 +30,7 @@
     "dev": "rollup -c build/rollup.js -w",
     "build": "rollup -c build/rollup.js",
     "prepare": "npm run lint:fix && npm run build",
-    "lint": "./node_modules/.bin/eslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "./node_modules/.bin/eslint 'src/**/*.ts' 'tests/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --watchAll --verbose",
     "test:coverage": "jest --coverage"
