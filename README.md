@@ -64,12 +64,16 @@ These functions manipulate collections, offering simple lodash-like functionalit
 
 ## Installation
 
-```bash
-# NPM
-npm i @likelylogic/collection-fns
+Add this line to your project's `.npmrc`:
 
-# Yarn
-yarn add @likelylogic/collection-fns
+```
+@likelylogic:registry=https://npm.pkg.github.com
+```
+
+Install via the command line:
+
+```bash
+npm i @likelylogic/collection-fns
 ```
 
 ## Usage
